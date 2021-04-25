@@ -38,27 +38,29 @@ chrome.runtime.onMessage.addListener(function(request, sender, callback) {
                 authKey = downloads[Object.keys(downloads)[0]].k;
             }
 
-            fetch('https://yt1s.com/api/ajaxConvert/convert', {
-                method: 'POST',
-                headers: {
-                    'authority': 'yt1s.com',
-                    'sec-ch-ua': '" Not A;Brand";v="99", "Chromium";v="90", "Google Chrome";v="90"',
-                    'accept': '*/*',
-                    'x-requested-with': 'XMLHttpRequest',
-                    'sec-ch-ua-mobile': '?0',
-                    'user-agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.85 Safari/537.36',
-                    'content-type': 'application/x-www-form-urlencoded; charset=UTF-8',
-                    'origin': 'https://yt1s.com',
-                    'sec-fetch-site': 'same-origin',
-                    'sec-fetch-mode': 'cors',
-                    'sec-fetch-dest': 'empty',
-                    'referer': 'https://yt1s.com/en5',
-                    'accept-language': 'en-GB,en-US;q=0.9,en;q=0.8',
-                    'cookie': '__cfduid=dae3087fc6b5a660de9323c890235e84c1619289707; _ga=GA1.2.1357389085.1619289710; _gid=GA1.2.691330434.1619289710; __atssc=google%3B1; __atuvc=2%7C16; __atuvs=608478a21dad09e9000'
-                },
-                body: 'vid=' + request.videoId + '&k=' + authKey
-            }).then(response => response.json())
-              .then(_data => callback(_data.dlink));
+fetch('https://yt1s.com/api/ajaxConvert/convert', {
+    method: 'POST',
+    headers: {
+        'authority': 'yt1s.com',
+        'sec-ch-ua': '" Not A;Brand";v="99", "Chromium";v="90", "Google Chrome";v="90"',
+        'accept': '*/*',
+        'x-requested-with': 'XMLHttpRequest',
+        'sec-ch-ua-mobile': '?0',
+        'user-agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.85 Safari/537.36',
+        'content-type': 'application/x-www-form-urlencoded; charset=UTF-8',
+        'origin': 'https://yt1s.com',
+        'sec-fetch-site': 'same-origin',
+        'sec-fetch-mode': 'cors',
+        'sec-fetch-dest': 'empty',
+        'accept-language': 'en-GB,en-US;q=0.9,en;q=0.8',
+    },
+    body: 'vid=' + request.videoId + '&k=' + encodeURIComponent(authKey)
+}).then(response => response.json())
+              .then(_data => {
+console.log(_data);
+callback(_data.dlink);
+
+})
           })
 
         return true; // prevents the callback from being called too early on return

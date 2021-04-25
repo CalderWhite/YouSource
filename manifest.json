@@ -22,6 +22,6 @@
   },
   "permissions": [
     "activeTab",
-    "http://videomultidownload.com/"
+    "https://yt1s.com/api/ajaxSearch/index"
   ]
 }
